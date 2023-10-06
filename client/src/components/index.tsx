@@ -1,3 +1,4 @@
 import { CreateButton } from "./CreateButton/CreateButton";
+import { VideoPlayer } from "./VideoPlayer/VideoPlayer";
 
-export { CreateButton };
+export { CreateButton, VideoPlayer };

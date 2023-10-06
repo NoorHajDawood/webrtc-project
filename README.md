@@ -17,4 +17,7 @@ A learning experience with WebRTC
 -   React
 -   TypeScript
 -   Socket.io
+-   React Router
+-   PeerJS
+-   UUID
 -   TailwindCSS

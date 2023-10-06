@@ -4,8 +4,15 @@ A learning experience with WebRTC
 
 ## Technologies
 
+### Backend
+
 -   Node.js
+-   TypeScript
 -   Express
--   WebRTC
+-   Socket.io
+
+### Frontend
+
 -   React
 -   TypeScript
+-   Socket.io

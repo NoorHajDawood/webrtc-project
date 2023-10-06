@@ -9,5 +9,13 @@ export const VideoPlayer: React.FC<{ stream: MediaStream }> = ({ stream }) => {
 		videoRef.current.srcObject = stream;
 	}, [stream]);
 
-	return <video ref={videoRef} autoPlay playsInline muted />;
+	return (
+		<video
+			style={{ width: "100%" }}
+			ref={videoRef}
+			autoPlay
+			playsInline
+			muted
+		/>
+	);
 };

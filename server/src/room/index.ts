@@ -25,7 +25,9 @@ export const roomHandler = (socket: Socket) => {
             roomId,
             participants: rooms[roomId].filter((id) => id !== peerId),
         });
-        socket.to(roomId).emit('peerJoined', { peerId });
+        socket.on('ready', () => {
+            socket.broadcast.to(roomId).emit('peerJoined', { peerId });
+        })
 
         socket.on('disconnect', () => {
             leaveRoom({ roomId, peerId });
@@ -33,7 +35,7 @@ export const roomHandler = (socket: Socket) => {
     }
     const leaveRoom = ({ roomId, peerId }: IRoomParams) => {
         socket.leave(roomId);
-        socket.to(roomId).emit('peerLeft', { peerId });
+        socket.broadcast.to(roomId).emit('peerLeft', { peerId });
         rooms[roomId] = rooms[roomId].filter((id) => id !== peerId);
     }
 

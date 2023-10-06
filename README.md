@@ -10,9 +10,11 @@ A learning experience with WebRTC
 -   TypeScript
 -   Express
 -   Socket.io
+-   UUID
 
 ### Frontend
 
 -   React
 -   TypeScript
 -   Socket.io
+-   TailwindCSS

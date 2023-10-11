@@ -1,4 +1,5 @@
 import { CreateButton } from "./CreateButton/CreateButton";
+import { ShareScreenButton } from "./ShareScreenButton/ShareScreenButton";
 import { VideoPlayer } from "./VideoPlayer/VideoPlayer";
 
-export { CreateButton, VideoPlayer };
+export { CreateButton, ShareScreenButton, VideoPlayer };

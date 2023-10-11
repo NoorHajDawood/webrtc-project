@@ -26,6 +26,7 @@ export const RoomProvider: React.FC<IRoomProviderProps> = ({ children }) => {
 	const [peer, setPeer] = useState<Peer | null>(null);
 	const [stream, setStream] = useState<MediaStream | null>(null);
 	const [peers, dispatch] = useReducer(peerReducer, {});
+	const [screenSharingId, setScreenSharingId] = useState<string>("");
 
 	const enterRoom = ({ roomId }: { roomId: string }) => {
 		navigate(`/room/${roomId}`);
@@ -44,6 +45,37 @@ export const RoomProvider: React.FC<IRoomProviderProps> = ({ children }) => {
 
 	const removePeer = ({ peerId }: { peerId: string }) => {
 		dispatch(removePeerAction(peerId));
+	};
+
+	const switchStream = (stream: MediaStream) => {
+		setStream(stream);
+		setScreenSharingId(peer?.id || "");
+	};
+
+	const shareScreen = () => {
+		if (screenSharingId) {
+			navigator.mediaDevices
+				.getUserMedia({ video: true, audio: true })
+				.then(switchStream);
+		} else {
+			navigator.mediaDevices.getDisplayMedia({}).then(switchStream);
+		}
+
+		// navigator.mediaDevices
+		// 	.getDisplayMedia({ video: true, audio: true })
+		// 	.then((screenStream) => {
+		// 		const screenTrack = screenStream.getTracks()[0];
+		// 		const sender = stream?.getTracks().find((track) => {
+		// 			return track.kind === "video";
+		// 		});
+		// 		sender?.replaceTrack(screenTrack);
+		// 		screenTrack.onended = () => {
+		// 			const cameraTrack = stream?.getTracks().find((track) => {
+		// 				return track.kind === "video";
+		// 			});
+		// 			sender?.replaceTrack(cameraTrack);
+		// 		};
+		// 	});
 	};
 
 	useEffect(() => {
@@ -97,7 +129,7 @@ export const RoomProvider: React.FC<IRoomProviderProps> = ({ children }) => {
 	}, [peers]);
 
 	return (
-		<RoomContext.Provider value={{ ws, peer, stream, peers }}>
+		<RoomContext.Provider value={{ ws, peer, stream, peers, shareScreen }}>
 			{children}
 		</RoomContext.Provider>
 	);
